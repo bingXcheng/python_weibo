@@ -46,8 +46,8 @@ if __name__ == '__main__':
     ssl_cert = os.environ.get('SSL_CERT', 'deploy/ssl/server.crt')
     ssl_key = os.environ.get('SSL_KEY', 'deploy/ssl/server.key')
 
-    host = os.environ.get('FLASK_HOST', '127.0.0.1')
-    port = int(os.environ.get('FLASK_PORT', 5000))
+    host = os.environ.get('FLASK_HOST', '0.0.0.0')
+    port = int(os.environ.get('PORT', os.environ.get('FLASK_PORT', 5000)))
     debug = os.environ.get('FLASK_DEBUG', '0') == '1'
 
     if use_https and os.path.exists(ssl_cert) and os.path.exists(ssl_key):
