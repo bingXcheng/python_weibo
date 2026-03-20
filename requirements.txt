@@ -52,3 +52,6 @@ zipp==3.23.0
 colorama==0.4.6
 typing-extensions==4.15.0
 greenlet==3.3.2
+
+# 生产服务器
+gunicorn==25.1.0
