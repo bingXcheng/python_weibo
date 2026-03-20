@@ -1,13 +1,5 @@
 from utils import getPublicData
 from datetime import datetime
-from wordcloud import WordCloud, ImageColorGenerator
-import matplotlib.pyplot as plt
-from PIL import Image, ImageDraw
-import numpy as np
-import jieba
-import os
-import re
-from snownlp import SnowNLP
 
 def getHomeTopLikeCommentsData():
     commentsList = getPublicData.getAllCommentsData()
@@ -98,11 +90,15 @@ def getCommentsUserCratedNumEchartsData():
     return resultData
 
 def stopwordslist():
-    stopwords = [line.strip() for line in open('./stopWords.txt',encoding='UTF-8').readlines()]
+    stopwords = [line.strip() for line in open('./stopWords.txt', encoding='UTF-8').readlines()]
     return stopwords
 
 
 def getUserNameWordCloud():
+    import jieba
+    import os
+    from wordcloud import WordCloud
+
     comments = getPublicData.getAllCommentsData()
     text = ''.join(comment[5] for comment in comments)
     stopwords = stopwordslist()
@@ -146,6 +142,9 @@ def _extract_keywords_from_text(text):
 
 def getHotKeywordRanking():
     """从微博文章内容中提取热点关键词并排行"""
+    import re
+    from snownlp import SnowNLP
+
     articles = getPublicData.getAllData()
     keyword_count = {}
 

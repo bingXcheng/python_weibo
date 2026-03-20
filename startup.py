@@ -1,22 +1,15 @@
-"""启动脚本：预热 matplotlib 字体缓存后启动 gunicorn"""
-import matplotlib
-import matplotlib.font_manager
+"""启动脚本：gunicorn 生产服务器，端口由 Render 环境变量 $PORT 提供"""
 import os
+import sys
 
-# 确保字体缓存写到 /tmp（内存友好）
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/mpl_cache")
 
-# 预热字体缓存（同步执行，避免 gunicorn worker 中首次请求时构建）
-print("[Startup] 正在预热 matplotlib 字体缓存...")
-try:
-    fm = matplotlib.font_manager.fontManager
-    _ = fm.findfont("DejaVu Sans")  # 触发字体缓存构建
-    print("[Startup] matplotlib 字体缓存预热完成")
-except Exception as e:
-    print(f"[Startup] matplotlib 预热警告（非致命）: {e}")
+# 静默压制第三方包的 SyntaxWarning（jieba / pyparsing 等，Python 3.14 兼容性）
+import warnings as _warnings
+_warnings.filterwarnings("ignore", category=SyntaxWarning)
 
-# 启动 gunicorn
-import sys
+# 启动 gunicorn（1 worker 保证低内存，/tmp 用于字体缓存）
 sys.exit(os.system(
-    'gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 1 --timeout 30'
+    "gunicorn app:app --bind 0.0.0.0:$PORT "
+    "--workers 1 --threads 1 --timeout 30"
 ))

@@ -1,14 +1,12 @@
-from flask import Flask, session, render_template, redirect, Blueprint, request, Response
-from utils import getHomeData,getTableData,getEchartsData
-from snownlp import SnowNLP
+from flask import session, render_template, Blueprint, request, Response
 
 
 pb = Blueprint('page',__name__,url_prefix='/page',template_folder='templates')
-from spider.main import main
 
 
 @pb.route('/home')
 def home():
+    from utils import getHomeData, getEchartsData
     username = session.get('username')
     articleLen, maxLikeAuthorName, maxCity, maxLikeCount, cityPostCount = getHomeData.getTagData()
     commentsLen = getHomeData.getCommentLenData()
@@ -50,6 +48,8 @@ def home():
 
 @pb.route('/tableData')
 def tabelData():
+    from utils import getTableData, getEchartsData
+    from snownlp import SnowNLP
     username = session.get('username')
     hotWordList = getTableData.getTableDataPageData()
     defaultHotWord = hotWordList[0][0]
@@ -82,6 +82,7 @@ def tabelData():
 
 @pb.route('/tableDataArticle')
 def tableDataArticle():
+    from utils import getTableData
     username = session.get('username')
     defaultFlag = False
     if request.args.get('flag'):defaultFlag = request.args.get('flag')
@@ -94,6 +95,7 @@ def tableDataArticle():
 
 @pb.route('/articleChar')
 def articleChar():
+    from utils import getEchartsData
     username = session.get('username')
     typeList = getEchartsData.getTypeList()
     defaultType = typeList[0] if typeList else '热门'
@@ -116,6 +118,7 @@ def articleChar():
 
 @pb.route('/ipChar')
 def ipChar():
+    from utils import getEchartsData, getHomeData
     username = session.get('username')
     geoDataOne = getEchartsData.getGeoCharDataOne()
     geoDataTwo = getEchartsData.getGeoCharDataTwo()
@@ -132,6 +135,7 @@ def ipChar():
 
 @pb.route('/commentChar')
 def commentChar():
+    from utils import getEchartsData, getHomeData
     username = session.get('username')
     xData, yData = getEchartsData.getCommetCharDataOne()
     genderDicData = getEchartsData.getCommetCharDataTwo()
@@ -150,6 +154,7 @@ def commentChar():
 
 @pb.route('/yuqingChar')
 def yuqingChar():
+    from utils import getEchartsData
     username = session.get('username')
     xData,yData,bieData = getEchartsData.getYuQingCharDataOne()
     bieData1, bieData2 = getEchartsData.getYuQingCharDataTwo()
@@ -165,6 +170,7 @@ def yuqingChar():
 
 @pb.route('/hotRank')
 def hotRank():
+    from utils import getHomeData
     username = session.get('username')
     rank_data = getHomeData.getHotKeywordRanking()
     return render_template('hotRank.html',

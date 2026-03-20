@@ -1,11 +1,4 @@
 from utils import getPublicData
-from static import *
-import jieba
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud, ImageColorGenerator
-from PIL import Image                   # 图片处理
-import numpy as np
-from snownlp import SnowNLP
 import os
 import hashlib
 
@@ -14,6 +7,7 @@ _sentiment_cache = {}
 
 def _compute_sentiment(text):
     """计算单条文本情感，使用缓存"""
+    from snownlp import SnowNLP
     if not text:
         return 0.5, '中性'
     text_hash = hash(str(text[:200])) % (10 ** 12)
@@ -178,6 +172,9 @@ def stopwordslist():
 
 
 def getContentCloud():
+    import jieba
+    from wordcloud import WordCloud
+
     text = ''.join([article[5] for article in getPublicData.getAllData()])
     stopwords = stopwordslist()
     words = ' '.join([word for word in jieba.cut(text) if word not in stopwords])
@@ -200,6 +197,9 @@ def getContentCloud():
 
 
 def getCommentContentCloud():
+    import jieba
+    from wordcloud import WordCloud
+
     text = ''.join([comment[4] for comment in getPublicData.getAllCommentsData()])
     stopwords = stopwordslist()
     words = ' '.join([word for word in jieba.cut(text) if word not in stopwords])

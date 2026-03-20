@@ -1,6 +1,5 @@
 from utils.getPublicData import *
 from datetime import datetime
-from snownlp import SnowNLP
 def getTableDataPageData():
     return getAllCiPingTotal()
 
@@ -31,6 +30,7 @@ def getTableDataEchartsData(hotWord):
 
 def getTableDataArticle(flag):
     if flag:
+        from snownlp import SnowNLP
         tableListOld = getAllData()
         tableList = []
         for item in tableListOld:
