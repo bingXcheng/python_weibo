@@ -1,1 +1,3 @@
-// Placeholder - referenced by backend-bundle.min.js
+// Placeholder - provides empty Database class for ES module compatibility
+class Database {}
+export default Database;

@@ -19,7 +19,7 @@ MYSQL_CONFIG = {
     'host': os.environ.get('DB_HOST', 'localhost'),
     'port': int(os.environ.get('DB_PORT', 3306)),
     'user': os.environ.get('DB_USER', 'root'),
-    'password': os.environ.get('DB_PASSWORD', 'root1'),
+    'password': os.environ.get('DB_PASSWORD', 'roo1t'),
     'database': os.environ.get('DB_NAME', 'weiboarticle'),
 }
 
@@ -206,10 +206,17 @@ def is_sqlite():
     return get_current_db() == 'sqlite'
 
 
+def get_user_table():
+    """返回当前数据库下 user 表在 SQL 中应使用的表名（SQLite 需加双引号避免保留字）"""
+    return '"user"' if is_sqlite() else 'user'
+
+
 def querys(sql, params=None, type_='select'):
     """
     统一的数据库查询函数
-    兼容 MySQL 和 SQLite，自动选择正确的数据库引擎
+    兼容 MySQL（PyMySQL）和 SQLite，自动选择正确的数据库引擎。
+    直接调用驱动原生 execute（绕过 text() 的参数绑定），
+    保证 %s（MySQL）和 ?（SQLite）两种占位符均可正常工作。
     """
     params = params or ()
     params = tuple(params)
@@ -217,16 +224,13 @@ def querys(sql, params=None, type_='select'):
     if engine is None:
         raise RuntimeError("数据库连接失败，所有数据库均不可用")
 
-    from sqlalchemy import text
     with engine.connect() as conn:
         if type_.lower() != 'select':
-            # INSERT / UPDATE / DELETE
             with engine.begin() as txn:
-                txn.execute(text(sql), params)
+                txn.exec_driver_sql(sql, params)
             return '数据库语句执行成功'
         else:
-            # SELECT
-            result = conn.execute(text(sql), params)
+            result = conn.exec_driver_sql(sql, params)
             rows = result.fetchall()
             return rows
 

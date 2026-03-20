@@ -10,7 +10,7 @@ warnings.filterwarnings("ignore", category=SyntaxWarning)
 
 from flask import Flask, session, render_template, redirect, request
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static')
 app.secret_key = os.environ.get('SECRET_KEY', 'This is a app.secret_Key , You Know ?')
 
 from views.page import page

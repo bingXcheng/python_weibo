@@ -128,6 +128,7 @@ def getUserNameWordCloud():
 
 def _extract_keywords_from_text(text):
     """从文本中提取微博话题关键词"""
+    import re
     # 提取 #话题# 格式
     topics = re.findall(r'#([^#]{2,20})#', str(text))
     # 过滤纯数字和无意义词

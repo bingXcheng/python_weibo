@@ -2,23 +2,32 @@ from flask import Flask,session,render_template,redirect,Blueprint,request
 from utils.errorResponse import *
 import time
 from utils.query import querys
+from db_config import get_user_table
 ub = Blueprint('user',__name__,url_prefix='/user',template_folder='templates')
 
 @ub.route('/login',methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         request.form = dict(request.form)
-
-        def filter_fns(item):
-            return request.form['username'] in item and request.form['password'] in item
-
-        users = querys('select * from user', [], 'select')
-        login_success = list(filter(filter_fns, users))
-        if not len(login_success):
+        username = (request.form.get('username') or '').strip()
+        password = (request.form.get('password') or '').strip()
+        if not username or not password:
             return errorResponse('输入的密码或账号出现问题')
 
-        session['username'] = request.form['username']
-        session['createTime'] = login_success[0][-1]
+        # 直接用 WHERE 条件精确查，不依赖 Python in 匹配
+        tbl = get_user_table()
+        if '"' in tbl:
+            sql = f'select * from {tbl} where username = ? and password = ?'
+            users = querys(sql, (username, password), 'select')
+        else:
+            sql = f'select * from {tbl} where username = %s and password = %s'
+            users = querys(sql, (username, password), 'select')
+
+        if not users:
+            return errorResponse('输入的密码或账号出现问题')
+
+        session['username'] = username
+        session['createTime'] = users[0][-1]  # 最后一列是 createTime
         return redirect('/page/home', 301)
     else:
         return render_template('login.html')
@@ -29,23 +38,34 @@ def login():
 def register():
     if request.method == 'POST':
         request.form = dict(request.form)
-        if request.form['password'] != request.form['passwordCheked']:
+        username = (request.form.get('username') or '').strip()
+        password = (request.form.get('password') or '').strip()
+        password_checked = (request.form.get('passwordCheked') or '').strip()
+        if password != password_checked:
             return errorResponse('两次密码不符')
+        tbl = get_user_table()
+        if '"' in tbl:
+            check_sql = f'select id from {tbl} where username = ?'
+            users = querys(check_sql, (username,), 'select')
         else:
-            def filter_fn(item):
-                return request.form['username'] in item
-
-            users = querys('select * from user', [], 'select')
-            filter_list = list(filter(filter_fn, users))
-            if len(filter_list):
-
-                return errorResponse('该用户名已被注册')
-            else:
-                time_tuple = time.localtime(time.time())
-                querys('insert into user(username,password,createTime) values(%s,%s,%s)',
-                       [request.form['username'], request.form['password'],
-                        str(time_tuple[0]) + '-' + str(time_tuple[1]) + '-' + str(time_tuple[2])])
-
+            check_sql = f'select id from {tbl} where username = %s'
+            users = querys(check_sql, (username,), 'select')
+        if users:
+            return errorResponse('该用户名已被注册')
+        time_tuple = time.localtime(time.time())
+        time_str = str(time_tuple[0]) + '-' + str(time_tuple[1]) + '-' + str(time_tuple[2])
+        if '"' in tbl:
+            querys(
+                f'insert into {tbl}(username,password,createTime) values(?,?,?)',
+                (username, password, time_str),
+                'insert'
+            )
+        else:
+            querys(
+                f'insert into {tbl}(username,password,createTime) values(%s,%s,%s)',
+                (username, password, time_str),
+                'insert'
+            )
         return errorResponse('注册成功！')
         #return redirect('/user/login', 301)
 

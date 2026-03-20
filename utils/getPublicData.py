@@ -1,5 +1,6 @@
 import json
 from .query import querys
+from db_config import get_user_table
 import pandas as pd
 import re
 import sys
@@ -92,7 +93,7 @@ def getAllCommentsData():
     return allCommentsData
 
 def getAllUserData():
-    return  querys('select * from user',[],'select')
+    return querys('select * from ' + get_user_table(), [], 'select')
 
 if __name__ == '__main__':
     print(getAllCiPingTotal())
