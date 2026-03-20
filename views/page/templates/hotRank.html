@@ -1,0 +1,227 @@
+{% extends 'base_page.html' %}
+{% block title %}热点关键词排行榜{% endblock %}
+{% block nav %}
+<nav class="iq-sidebar-menu">
+    <ul id="iq-sidebar-toggle" class="side-menu">
+        <li class="px-3 pt-3 pb-2"><span class="text-uppercase small font-weight-bold">抓取与监控</span></li>
+        <li class="sidebar-layout"><a href="/page/home" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></i><span class="ml-2">首页</span></a></li>
+        <li class="sidebar-layout"><a href="/page/tableData" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></i><span class="ml-2">热词统计</span></a></li>
+        <li class="active sidebar-layout"><a href="/page/hotRank" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></i><span class="ml-2">热点排行</span></a></li>
+        <li class="sidebar-layout"><a href="/page/tableDataArticle" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></i><span class="ml-2">舆情监控</span></a></li>
+        <li class="px-3 pt-3 pb-2"><span class="text-uppercase small font-weight-bold">分析模块</span></li>
+        <li class="sidebar-layout"><a href="/page/articleChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg></i><span class="ml-2">文章分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/commentChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></i><span class="ml-2">评论分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/ipChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></i><span class="ml-2">IP分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/yuqingChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></i><span class="ml-2">情感分析</span></a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="content-page">
+    <div class="container-fluid">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="font-weight-bold mb-1">热点关键词排行榜</h2>
+                        <p class="text-muted mb-0" style="font-size:0.875rem;">基于微博热门话题提取 · 实时热度排名 TOP 50</p>
+                    </div>
+                    <button onclick="refreshRank()" class="btn btn-outline-primary btn-sm" style="border-radius:var(--radius-sm);">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" fill="none" viewbox="0 0 24 24" stroke="currentColor" class="mr-1"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                        刷新排行
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 总览卡片 -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stat-icon" style="background:linear-gradient(135deg,#ef4444,#f87171);color:white;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="mb-0 text-muted" style="font-size:0.8rem;">关键词总数</p>
+                            <h3 class="font-weight-bold mb-0">{{ total_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stat-icon" style="background:linear-gradient(135deg,#10b981,#34d399);color:white;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="mb-0 text-muted" style="font-size:0.8rem;">正面关键词</p>
+                            <h3 class="font-weight-bold mb-0 text-success">{{ positive_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stat-icon" style="background:linear-gradient(135deg,#ef4444,#f87171);color:white;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="mb-0 text-muted" style="font-size:0.8rem;">负面关键词</p>
+                            <h3 class="font-weight-bold mb-0 text-danger">{{ negative_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-body d-flex align-items-center">
+                        <div class="stat-icon" style="background:linear-gradient(135deg,#64748b,#94a3b8);color:white;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <div class="ml-3">
+                            <p class="mb-0 text-muted" style="font-size:0.8rem;">中性关键词</p>
+                            <h3 class="font-weight-bold mb-0 text-secondary">{{ neutral_count }}</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 排行榜 + 趋势图 -->
+        <div class="row mb-4">
+            <!-- 左侧排行榜 -->
+            <div class="col-lg-5 mb-3">
+                <div class="card border-0 h-100" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h5 class="font-weight-bold mb-0">🔥 实时热度排行</h5>
+                            <span class="badge badge-success badge-pill">
+                                <span class="live-dot mr-1"></span>实时
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body p-2" style="max-height:580px;overflow-y:auto;">
+                        {% for item in hot_rank_list %}
+                        <div class="rank-item" style="padding:0.75rem;border-radius:var(--radius-sm);margin-bottom:6px;">
+                            <div class="rank-num {% if loop.index<=3 %}top3{% else %}normal{% endif %}">{{ loop.index }}</div>
+                            <div class="flex-grow-1 ml-2" style="min-width:0;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="font-weight-bold text-truncate" style="font-size:0.95rem;color:var(--text-primary);">{{ item.keyword }}</span>
+                                    <span class="badge badge-danger badge-pill ml-2 flex-shrink-0">{{ item.count }}次</span>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    {% if item.sentiment_label == '正面' %}
+                                    <span class="badge badge-success badge-pill mr-1" style="font-size:0.7rem;">正面</span>
+                                    {% elif item.sentiment_label == '负面' %}
+                                    <span class="badge badge-danger badge-pill mr-1" style="font-size:0.7rem;">负面</span>
+                                    {% else %}
+                                    <span class="badge badge-secondary badge-pill mr-1" style="font-size:0.7rem;">中性</span>
+                                    {% endif %}
+                                    <div class="flex-grow-1" style="height:4px;background:#e2e8f0;border-radius:2px;margin-left:8px;">
+                                        <div style="height:100%;width:{{ (item.count / top_count * 100)|int }}%;background:linear-gradient(90deg,#4f46e5,#818cf8);border-radius:2px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧图表 -->
+            <div class="col-lg-7 mb-3">
+                <div class="card border-0 h-100" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">📊 热度趋势分析</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="mainRank" style="height:300px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 情感分布饼图 -->
+        <div class="row">
+            <div class="col-lg-4 mb-3">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3"><h5 class="font-weight-bold mb-0">关键词情感占比</h5></div>
+                    <div class="card-body"><div id="pieSentiment" style="height:300px;"></div></div>
+                </div>
+            </div>
+            <div class="col-lg-8 mb-3">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3"><h5 class="font-weight-bold mb-0">TOP 20 关键词柱状图</h5></div>
+                    <div class="card-body"><div id="barRank" style="height:300px;"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block echarts %}
+<script>
+function refreshRank(){location.reload();}
+
+var keywords = {{ rank_keywords | tojson }};
+var counts = {{ rank_counts | tojson }};
+
+// 热度趋势图
+var myChart1 = echarts.init(document.getElementById('mainRank'));
+myChart1.setOption({
+    tooltip:{trigger:'axis'},grid:{left:'3%',right:'4%',bottom:'3%',containLabel:true},
+    xAxis:{type:'category',data:keywords.slice(0,15),axisLine:{lineStyle:{color:'#e2e8f0'}},axisLabel:{color:'#64748b',fontSize:11,rotate:30,interval:0}},
+    yAxis:{type:'value',axisLine:{show:false},splitLine:{lineStyle:{color:'#f1f5f9'}},axisLabel:{color:'#64748b'}},
+    series:[{
+        name:'热度值',type:'bar',data:counts.slice(0,15),
+        itemStyle:{color:'#4f46e5',borderRadius:[4,4,0,0]},
+        barWidth:'60%',
+        markPoint:{data:[{type:'max'},{type:'min'}]}
+    }]
+});
+
+// 情感饼图
+var myChart2 = echarts.init(document.getElementById('pieSentiment'));
+myChart2.setOption({
+    tooltip:{trigger:'item',formatter:'{a}<br/>{b}: {c} ({d}%)'},
+    legend:{bottom:'5%',left:'center',type:'scroll'},
+    series:[{
+        name:'情感分布',type:'pie',radius:['45%','70%'],center:['50%','45%'],
+        itemStyle:{borderRadius:8,borderColor:'#fff',borderWidth:3},
+        label:{show:false,position:'center'},
+        emphasis:{label:{show:true,fontSize:16,fontWeight:'bold'}},
+        labelLine:{show:false},
+        data:[
+            {name:'正面',value:{{ positive_count }},itemStyle:{color:'#10b981'}},
+            {name:'中性',value:{{ neutral_count }},itemStyle:{color:'#64748b'}},
+            {name:'负面',value:{{ negative_count }},itemStyle:{color:'#ef4444'}}
+        ]
+    }]
+});
+
+// TOP20柱状图
+var myChart3 = echarts.init(document.getElementById('barRank'));
+myChart3.setOption({
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},
+    grid:{left:'3%',right:'4%',bottom:'3%',containLabel:true},
+    xAxis:{type:'value',axisLine:{lineStyle:{color:'#e2e8f0'}},splitLine:{lineStyle:{color:'#f1f5f9'}},axisLabel:{color:'#64748b'}},
+    yAxis:{type:'category',data:keywords.slice(0,20).reverse(),axisLine:{lineStyle:{color:'#e2e8f0'}},axisLabel:{color:'#64748b',fontSize:11}},
+    series:[{
+        name:'热度次数',type:'bar',data:counts.slice(0,20).reverse(),
+        itemStyle:{
+            color:function(p){
+                var c=['#ef4444','#f97316','#f59e0b','#eab308','#84cc16','#22c55e','#10b981','#14b8a6','#06b6d4','#0ea5e9','#6366f1','#8b5cf6','#a855f7','#d946ef','#ec4899','#f43f5e','#64748b','#94a3b8','#4f46e5','#818cf8'];
+                return c[p.dataIndex]||'#4f46e5';
+            },borderRadius:[0,4,4,0]
+        },barWidth:'60%'
+    }]
+});
+
+window.addEventListener('resize',()=>{myChart1.resize();myChart2.resize();myChart3.resize();});
+</script>
+{% endblock %}

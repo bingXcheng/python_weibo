@@ -1,0 +1,98 @@
+{% extends 'base_page.html' %}
+{% block title %}文章分析{% endblock %}
+{% block nav %}
+<nav class="iq-sidebar-menu">
+    <ul id="iq-sidebar-toggle" class="side-menu">
+        <li class="px-3 pt-3 pb-2"><span class="text-uppercase small font-weight-bold">抓取与监控</span></li>
+        <li class="sidebar-layout"><a href="/page/home" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></i><span class="ml-2">首页</span></a></li>
+        <li class="sidebar-layout"><a href="/page/tableData" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></i><span class="ml-2">热词统计</span></a></li>
+        <li class="sidebar-layout"><a href="/page/hotRank" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></i><span class="ml-2">热点排行</span></a></li>
+        <li class="sidebar-layout"><a href="/page/tableDataArticle" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></i><span class="ml-2">舆情监控</span></a></li>
+        <li class="px-3 pt-3 pb-2"><span class="text-uppercase small font-weight-bold">分析模块</span></li>
+        <li class="active sidebar-layout"><a href="/page/articleChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg></i><span class="ml-2">文章分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/commentChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></i><span class="ml-2">评论分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/ipChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></i><span class="ml-2">IP分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/yuqingChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></i><span class="ml-2">情感分析</span></a></li>
+    </ul>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="content-page">
+    <div class="container-fluid">
+        <div class="row mb-4">
+            <div class="col-12">
+                <h2 class="font-weight-bold mb-1">文章分析</h2>
+                <p class="text-muted mb-0" style="font-size:0.875rem;">微博文章点赞、评论、转发数据分析</p>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-body py-3">
+                        <div class="form-group mb-0">
+                            <label class="h6 mb-2">文章类型：</label>
+                            <select onchange="changeType(event)" class="form-control form-control-lg border" style="border-radius:var(--radius-sm);max-width:400px;">
+                                {% for type in typeList %}
+                                <option value="{{ type }}" {% if defaultType==type %}selected{% endif %}>{{ type }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-3">
+                <div class="card border-0 h-100" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3"><h5 class="font-weight-bold mb-0">👍 文章点赞量分析</h5></div>
+                    <div class="card-body"><div id="main" style="height:400px;"></div></div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+                <div class="card border-0 h-100" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3"><h5 class="font-weight-bold mb-0">💬 文章评论量分析</h5></div>
+                    <div class="card-body"><div id="mainTwo" style="height:400px;"></div></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius:var(--radius);">
+                    <div class="card-header bg-white py-3"><h5 class="font-weight-bold mb-0">🔁 文章转发量分析</h5></div>
+                    <div class="card-body"><div id="mainThree" style="height:400px;"></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block echarts %}
+<script>
+function changeType(e){window.location.href='/page/articleChar?type='+encodeURIComponent(e.target.value);}
+var myChart=echarts.init(document.getElementById('main'));
+myChart.setOption({
+    tooltip:{trigger:'axis'},grid:{left:'3%',right:'4%',bottom:'3%',containLabel:true},
+    xAxis:{type:'category',data:{{ xData|tojson }},axisLine:{lineStyle:{color:'#e2e8f0'}},axisLabel:{color:'#64748b',fontSize:11,rotate:30}},
+    yAxis:{type:'value',axisLine:{show:false},splitLine:{lineStyle:{color:'#f1f5f9'}},axisLabel:{color:'#64748b'}},
+    series:[{name:'点赞数',type:'bar',data:{{ yData }},itemStyle:{color:'#4f46e5',borderRadius:[4,4,0,0]},barWidth:'50%',markPoint:{data:[{type:'max'},{type:'min'}]}}]
+});
+window.addEventListener('resize',()=>myChart.resize());
+var myChart2=echarts.init(document.getElementById('mainTwo'));
+myChart2.setOption({
+    tooltip:{trigger:'axis'},grid:{left:'3%',right:'4%',bottom:'3%',containLabel:true},
+    xAxis:{type:'category',data:{{ x1Data|tojson }},axisLine:{lineStyle:{color:'#e2e8f0'}},axisLabel:{color:'#64748b',fontSize:11,rotate:30}},
+    yAxis:{type:'value',axisLine:{show:false},splitLine:{lineStyle:{color:'#f1f5f9'}},axisLabel:{color:'#64748b'}},
+    series:[{name:'评论数',type:'line',data:{{ y1Data }},smooth:true,lineStyle:{width:3,color:'#10b981'},itemStyle:{color:'#10b981'},areaStyle:{color:'rgba(16,185,129,0.1)'}}]
+});
+window.addEventListener('resize',()=>myChart2.resize());
+var myChart3=echarts.init(document.getElementById('mainThree'));
+myChart3.setOption({
+    tooltip:{trigger:'axis',axisPointer:{type:'shadow'}},grid:{left:'3%',right:'4%',bottom:'10%',containLabel:true},
+    dataZoom:[{show:true,start:0,end:30},{type:'inside'}],
+    xAxis:{type:'category',data:{{ x2Data|tojson }},axisLine:{lineStyle:{color:'#e2e8f0'}},axisLabel:{color:'#64748b',fontSize:11,rotate:30}},
+    yAxis:{type:'value',axisLine:{show:false},splitLine:{lineStyle:{color:'#f1f5f9'}},axisLabel:{color:'#64748b'}},
+    series:[{name:'转发数',type:'bar',data:{{ y2Data }},itemStyle:{color:'#f59e0b',borderRadius:[4,4,0,0]},barWidth:'50%'}]
+});
+window.addEventListener('resize',()=>myChart3.resize());
+</script>
+{% endblock %}

@@ -1,0 +1,373 @@
+{% extends 'base_page.html' %}
+
+{% block title %}首页{% endblock %}
+{% block content %}
+<div class="content-page">
+    <div class="container-fluid">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="font-weight-bold mb-1" style="color: var(--text-primary);">数据概览</h2>
+                        <p class="text-muted mb-0" style="font-size: 0.875rem;">实时微博热门数据监控</p>
+                    </div>
+                    <div class="text-right">
+                        <div id="live-clock" class="font-weight-bold" style="font-size: 1.1rem; color: var(--primary);"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 统计卡片行 -->
+        <div class="row mb-4">
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #4f46e5, #818cf8); color: white;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"/></svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="mb-0 text-muted" style="font-size: 0.8rem;">文章总数</p>
+                                <h3 class="font-weight-bold mb-0">{{ articleLen }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #10b981, #34d399); color: white;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="mb-0 text-muted" style="font-size: 0.8rem;">评论总数</p>
+                                <h3 class="font-weight-bold mb-0">{{ commentsLen }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #f59e0b, #fbbf24); color: white;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"/></svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="mb-0 text-muted" style="font-size: 0.8rem;">最高点赞作者</p>
+                                <h6 class="font-weight-bold mb-0 text-truncate" style="max-width: 150px;">{{ maxLikeAuthorName }}</h6>
+                                <small class="text-success">{{ maxLikeCount }} 赞</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-3">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center">
+                            <div class="stat-icon" style="background: linear-gradient(135deg, #ef4444, #f87171); color: white;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div class="ml-3">
+                                <p class="mb-0 text-muted" style="font-size: 0.8rem;">热门IP城市</p>
+                                <h5 class="font-weight-bold mb-0">{{ maxCity }}</h5>
+                                <small class="text-danger">{{ cityPostCount }} 篇</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抓取按钮 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-body d-flex align-items-center justify-content-between py-3">
+                        <div>
+                            <h5 class="font-weight-bold mb-1">微博数据抓取</h5>
+                            <p class="text-muted mb-0" style="font-size: 0.85rem;">从 m.weibo.cn 实时抓取热门微博与评论数据</p>
+                        </div>
+                        <button class="btn btn-danger btn-lg" onclick="startSpider()" id="spider-btn" style="border-radius: var(--radius); padding: 0.6rem 2rem; font-weight: 600;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="mr-2"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+                            开始抓取
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 抓取进度（进度条 + 状态文字） -->
+        <div id="spider-progress" class="row mb-4" style="display: none;">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius: var(--radius); border-left: 4px solid var(--primary) !important;">
+                    <div class="card-body py-3">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="spinner-border text-primary mr-3" role="status" style="width: 1.5rem; height: 1.5rem; border-width: 2px;"></div>
+                            <span id="progress-text" class="font-weight-500">初始化中...</span>
+                        </div>
+                        <div class="progress" style="height: 8px; border-radius: 4px; background: #e2e8f0;">
+                            <div id="progress-bar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%; background: linear-gradient(90deg, #4f46e5, #818cf8);" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 图表行：发布趋势 + 文章类型 + 热点排行 -->
+        <div class="row mb-4">
+            <!-- 发布趋势图 -->
+            <div class="col-xl-8 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">文章发布频率趋势</h5>
+                        <p class="text-muted mb-0 mt-1" style="font-size: 0.8rem;">按日期统计每日微博发布数量</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="main" style="width:100%;height:300px;"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- 热点排行卡片 -->
+            <div class="col-xl-4 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3 d-flex align-items-center justify-content-between">
+                        <h5 class="font-weight-bold mb-0">🔥 热点关键词 TOP10</h5>
+                        <a href="/page/hotRank" class="btn btn-sm btn-outline-primary" style="border-radius: var(--radius-sm); font-size: 0.75rem;">查看全部 →</a>
+                    </div>
+                    <div class="card-body p-2" style="max-height:340px;overflow-y:auto;">
+                        {% for item in hot_rank_preview %}
+                        <div class="rank-item" style="padding: 0.6rem 0.5rem; margin-bottom: 4px;">
+                            <div class="rank-num {% if loop.index<=3 %}top3{% else %}normal{% endif %}">{{ loop.index }}</div>
+                            <div class="flex-grow-1 ml-2" style="min-width:0;">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <span class="font-weight-bold text-truncate" style="font-size:0.85rem;color:var(--text-primary);">{{ item.keyword }}</span>
+                                    <span class="badge badge-danger badge-pill ml-1 flex-shrink-0" style="font-size:0.7rem;">{{ item.count }}次</span>
+                                </div>
+                                <div class="d-flex align-items-center mt-1">
+                                    <span class="badge badge-{% if item.sentiment_label=='正面' %}success{% elif item.sentiment_label=='负面' %}danger{% else %}secondary{% endif %} badge-pill mr-1" style="font-size:0.65rem;">{{ item.sentiment_label }}</span>
+                                    <div style="flex-grow:1;height:3px;background:#e2e8f0;border-radius:2px;margin-left:6px;">
+                                        <div style="height:100%;width:{{ (item.count / top_hot_count * 100)|int }}%;background:linear-gradient(90deg,#4f46e5,#818cf8);border-radius:2px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% if not hot_rank_preview %}
+                        <div class="text-center text-muted py-5">
+                            <p style="font-size:0.85rem;">暂无热点数据</p>
+                            <p style="font-size:0.75rem;">点击上方"开始抓取"获取数据</p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二行图表 -->
+        <div class="row">
+            <div class="col-lg-6 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">文章类型占比</h5>
+                    </div>
+                    <div class="card-body d-flex align-items-center">
+                        <div id="mainTwo" style="width:100%;height:280px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">用户发布微博数量分布</h5>
+                    </div>
+                    <div class="card-body d-flex align-items-center">
+                        <div id="mainThree" style="width:100%;height:280px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// 实时时钟
+function updateClock() {
+    const date = new Date();
+    const options = {
+        year: 'numeric', month: '2-digit', day: '2-digit',
+        hour: '2-digit', minute: '2-digit', second: '2-digit',
+        hour12: false, weekday: 'short'
+    };
+    document.getElementById('live-clock').textContent = date.toLocaleString('zh-CN', options);
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// 抓取功能
+async function startSpider() {
+    const btn = document.getElementById('spider-btn');
+    const progressDiv = document.getElementById('spider-progress');
+    const progressText = document.getElementById('progress-text');
+
+    try {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm mr-2"></span>抓取中...';
+        progressDiv.style.display = 'block';
+        progressText.textContent = '正在连接爬虫服务...';
+
+        const startResponse = await fetch('/spider/start', { method: 'POST' });
+        if (!startResponse.ok) throw new Error('抓取启动失败');
+
+        const progressBar = document.getElementById('progress-bar');
+        let stepCount = 0;
+        const eventSource = new EventSource('/spider/progress');
+        eventSource.onmessage = (e) => {
+            const msg = e.data;
+            if (msg === 'completed') {
+                eventSource.close();
+                progressBar.style.width = '100%';
+                progressBar.setAttribute('aria-valuenow', 100);
+                progressText.textContent = '抓取完成！页面即将刷新...';
+                progressText.style.color = 'var(--success)';
+                progressBar.classList.remove('progress-bar-animated');
+                setTimeout(() => location.reload(), 2000);
+            } else if (msg.startsWith('ERR')) {
+                progressText.textContent = '错误: ' + msg;
+                progressText.style.color = 'var(--danger)';
+                btn.disabled = false;
+                btn.innerHTML = '重新抓取';
+            } else {
+                progressText.textContent = msg;
+                stepCount++;
+                var pct = Math.min(5 + stepCount * 8, 95);
+                progressBar.style.width = pct + '%';
+                progressBar.setAttribute('aria-valuenow', pct);
+            }
+        };
+        eventSource.onerror = () => {
+            eventSource.close();
+            progressText.textContent = '连接中断，请重试';
+            progressText.style.color = 'var(--danger)';
+            btn.disabled = false;
+            btn.innerHTML = '重新抓取';
+        };
+    } catch (error) {
+        progressDiv.style.display = 'none';
+        alert('抓取失败: ' + error.message);
+        btn.disabled = false;
+        btn.innerHTML = '开始抓取';
+    }
+}
+</script>
+{% endblock %}
+
+{% block echarts %}
+<script>
+(function(){
+    var xData = {{ xData | tojson }};
+    var yData = {{ yData | tojson }};
+    var xRes = xData.slice(0, 8);
+    var yRes = yData.slice(0, 8);
+
+    var myCharts = echarts.init(document.getElementById('main'));
+    var options = {
+        tooltip: { trigger: 'axis' },
+        grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+        xAxis: {
+            type: 'category',
+            data: xRes,
+            boundaryGap: false,
+            axisLine: { lineStyle: { color: '#e2e8f0' } },
+            axisLabel: { color: '#64748b', fontSize: 11 }
+        },
+        yAxis: {
+            type: 'value',
+            axisLine: { show: false },
+            splitLine: { lineStyle: { color: '#f1f5f9' } },
+            axisLabel: { color: '#64748b', fontSize: 11 }
+        },
+        series: [{
+            name: "文章数量",
+            data: yRes,
+            type: 'line',
+            smooth: true,
+            areaStyle: { color: { type: 'linear', x: 0, y: 0, x2: 0, y2: 1, colorStops: [{ offset: 0, color: 'rgba(79,70,229,0.25)' }, { offset: 1, color: 'rgba(79,70,229,0.02)' }] } },
+            lineStyle: { width: 3, color: '#4f46e5' },
+            itemStyle: { color: '#4f46e5', borderWidth: 2 },
+            emphasis: { focus: 'series' }
+        }]
+    };
+    myCharts.setOption(options);
+
+    if (xData.length > 8) {
+        let count = 8;
+        setInterval(function() {
+            if (count >= xData.length) count = 0;
+            xRes.shift(); xRes.push(xData[count]);
+            yRes.shift(); yRes.push(yData[count]);
+            count++;
+            myCharts.setOption({ xAxis: [{ data: xRes }], series: [{ data: yRes }] });
+        }, 5000);
+    }
+
+    window.addEventListener('resize', function() { myCharts.resize(); });
+})();
+</script>
+<script>
+(function(){
+    var pieData1 = {{ userCreatedDicData | tojson }};
+    if (!pieData1 || pieData1.length === 0) {
+        pieData1 = [{ name: '暂无数据', value: 1, itemStyle: { color: '#e2e8f0' } }];
+    }
+    var myChart = echarts.init(document.getElementById('mainTwo'));
+    myChart.setOption({
+        tooltip: { trigger: 'item' },
+        legend: { bottom: '5%', left: 'center', type: 'scroll' },
+        series: [{
+            name: '类型占比',
+            type: 'pie',
+            radius: ['45%', '70%'],
+            center: ['50%', '45%'],
+            itemStyle: { borderRadius: 8, borderColor: '#fff', borderWidth: 3 },
+            label: { show: false, position: 'center' },
+            emphasis: { label: { show: true, fontSize: 18, fontWeight: 'bold' } },
+            labelLine: { show: false },
+            data: pieData1
+        }]
+    });
+    window.addEventListener('resize', function() { myChart.resize(); });
+})();
+</script>
+<script>
+(function(){
+    var pieData2 = {{ commentUserCreatedDicData | tojson }};
+    if (!pieData2 || pieData2.length === 0) {
+        pieData2 = [{ name: '暂无数据', value: 1, itemStyle: { color: '#e2e8f0' } }];
+    }
+    var myChart = echarts.init(document.getElementById('mainThree'));
+    myChart.setOption({
+        tooltip: { trigger: 'item' },
+        legend: { bottom: '5%', left: 'center', type: 'scroll' },
+        series: [{
+            name: '用户发布数',
+            type: 'pie',
+            radius: ['45%', '70%'],
+            center: ['50%', '45%'],
+            itemStyle: { borderRadius: 8, borderColor: '#fff', borderWidth: 3 },
+            label: { show: false, position: 'center' },
+            emphasis: { label: { show: true, fontSize: 18, fontWeight: 'bold' } },
+            labelLine: { show: false },
+            data: pieData2
+        }]
+    });
+    window.addEventListener('resize', function() { myChart.resize(); });
+})();
+</script>
+{% endblock %}

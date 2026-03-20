@@ -1,0 +1,228 @@
+{% extends 'base_page.html' %}
+
+{% block title %}热词统计{% endblock %}
+{% block nav %}
+<nav class="iq-sidebar-menu">
+    <ul id="iq-sidebar-toggle" class="side-menu">
+        <li class="px-3 pt-3 pb-2"><span class="text-uppercase small font-weight-bold">抓取与监控</span></li>
+        <li class="sidebar-layout"><a href="/page/home" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></i><span class="ml-2">首页</span></a></li>
+        <li class="active sidebar-layout"><a href="/page/tableData" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18m-9-4v8m-7 0h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg></i><span class="ml-2">热词统计</span></a></li>
+        <li class="sidebar-layout"><a href="/page/hotRank" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg></i><span class="ml-2">热点排行</span></a></li>
+        <li class="sidebar-layout"><a href="/page/tableDataArticle" class="collapsed svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg></i><span class="ml-2">舆情监控</span></a></li>
+        <li class="px-3 pt-3 pb-2"><span class="text-uppercase small font-weight-bold">分析模块</span></li>
+        <li class="sidebar-layout"><a href="/page/articleChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg></i><span class="ml-2">文章分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/commentChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg></i><span class="ml-2">评论分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/ipChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></i><span class="ml-2">IP分析</span></a></li>
+        <li class="sidebar-layout"><a href="/page/yuqingChar" class="svg-icon"><i><svg xmlns="http://www.w3.org/2000/svg" width="18" fill="none" viewbox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></i><span class="ml-2">情感分析</span></a></li>
+    </ul>
+</nav>
+{% endblock %}
+
+{% block content %}
+<div class="content-page">
+    <div class="container-fluid">
+        <!-- 页面标题 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h2 class="font-weight-bold mb-1">热词统计</h2>
+                        <p class="text-muted mb-0" style="font-size: 0.875rem;">热词排行榜 · 按关键词出现频次排名</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 热词TOP10排行榜 -->
+        <div class="row mb-4">
+            <div class="col-lg-5 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">🔥 热点关键词排行榜</h5>
+                    </div>
+                    <div class="card-body p-2">
+                        <div id="mainFore" style="height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 热词信息栏 -->
+            <div class="col-lg-3 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">当前热词信息</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span class="text-muted" style="font-size: 0.85rem;">关键词</span>
+                                <span class="badge badge-primary badge-pill">{{ defaultHotWord }}</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span class="text-muted" style="font-size: 0.85rem;">出现次数</span>
+                                <span class="badge badge-success badge-pill">{{ defaultHotWordNum }}次</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                <span class="text-muted" style="font-size: 0.85rem;">情感倾向</span>
+                                {% if emotionValue == '正面' %}
+                                <span class="badge badge-success badge-pill">{{ emotionValue }}</span>
+                                {% elif emotionValue == '负面' %}
+                                <span class="badge badge-danger badge-pill">{{ emotionValue }}</span>
+                                {% else %}
+                                <span class="badge badge-secondary badge-pill">{{ emotionValue }}</span>
+                                {% endif %}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 时间分布趋势 -->
+            <div class="col-lg-4 mb-3">
+                <div class="card border-0 h-100" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3">
+                        <h5 class="font-weight-bold mb-0">时间分布趋势</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="main" style="height:400px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 热词选择栏 -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-body py-3">
+                        <div class="form-group mb-0">
+                            <label class="h6 mb-2">选择分析热词：</label>
+                            <select onchange="changeHotWord(event)" class="form-control form-control-lg border" style="border-radius: var(--radius-sm);">
+                                {% for hotWord in hotWordList %}
+                                <option value="{{ hotWord[0] }}" {% if defaultHotWord==hotWord[0] %}selected{% endif %}>
+                                    {{ hotWord[0] }} ({{ hotWord[1] }}次)
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 热词查询表格 -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card border-0" style="border-radius: var(--radius);">
+                    <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
+                        <h5 class="font-weight-bold mb-0">相关微博数据</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="width:120px">文章ID</th>
+                                        <th style="width:100px">评论用户</th>
+                                        <th style="width:80px">用户地址</th>
+                                        <th>内容</th>
+                                        <th style="width:100px">评论时间</th>
+                                        <th style="width:80px">点赞</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in tableList %}
+                                    <tr>
+                                        <td class="text-muted" style="font-size: 0.8rem;">{{ i[0] }}</td>
+                                        <td><span class="font-weight-600">{{ i[5] }}</span></td>
+                                        <td><span class="badge badge-light badge-pill">{{ i[7] }}</span></td>
+                                        <td><span class="text-truncate d-inline-block" style="max-width: 300px;">{{ i[4] }}</span></td>
+                                        <td class="text-muted" style="font-size: 0.8rem;">{{ i[1] }}</td>
+                                        <td><span class="badge badge-danger badge-pill">👍 {{ i[2] }}</span></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block echarts %}
+<script>
+function changeHotWord(event) {
+    const selectedValue = event.target.value;
+    const baseUrl = window.location.href.split('?')[0];
+    window.location.href = `${baseUrl}?hotWord=${encodeURIComponent(selectedValue)}`;
+}
+
+var chartDom = document.getElementById('mainFore');
+var myChart = echarts.init(chartDom);
+var option = {
+    tooltip: { trigger: 'axis', axisPointer: { type: 'shadow' } },
+    grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+    xAxis: {
+        type: 'value',
+        axisLine: { lineStyle: { color: '#e2e8f0' } },
+        splitLine: { lineStyle: { color: '#f1f5f9' } },
+        axisLabel: { color: '#64748b' }
+    },
+    yAxis: {
+        type: 'category',
+        data: {{ x1Data | tojson }},
+        axisLine: { lineStyle: { color: '#e2e8f0' } },
+        axisLabel: { color: '#64748b', fontSize: 12 }
+    },
+    series: [{
+        name: '热词次数',
+        type: 'bar',
+        data: {{ y1Data | tojson }},
+        itemStyle: {
+            color: function(params) {
+                var colors = ['#ef4444','#f97316','#f59e0b','#eab308','#84cc16','#22c55e','#10b981','#14b8a6','#06b6d4','#0ea5e9'];
+                return colors[params.dataIndex] || '#4f46e5';
+            },
+            borderRadius: [0, 6, 6, 0]
+        },
+        barWidth: '60%'
+    }]
+};
+myChart.setOption(option);
+window.addEventListener('resize', () => myChart.resize());
+</script>
+<script>
+var chartDom = document.getElementById('main');
+var myChart = echarts.init(chartDom);
+var option = {
+    tooltip: { trigger: 'axis' },
+    grid: { left: '3%', right: '4%', bottom: '3%', containLabel: true },
+    xAxis: {
+        type: 'category',
+        data: {{ xData | tojson }},
+        axisLine: { lineStyle: { color: '#e2e8f0' } },
+        axisLabel: { color: '#64748b', fontSize: 11, rotate: 30 }
+    },
+    yAxis: {
+        type: 'value',
+        axisLine: { show: false },
+        splitLine: { lineStyle: { color: '#f1f5f9' } },
+        axisLabel: { color: '#64748b' }
+    },
+    dataZoom: [{ show: true, start: 54, end: 100 }, { type: 'inside' }],
+    series: [{
+        name: '分布个数',
+        type: 'bar',
+        data: {{ yData | tojson }},
+        itemStyle: { color: '#4f46e5', borderRadius: [4, 4, 0, 0] },
+        barWidth: '50%',
+        markLine: { data: [{ type: 'average', name: '平均值' }] }
+    }]
+};
+myChart.setOption(option);
+window.addEventListener('resize', () => myChart.resize());
+</script>
+{% endblock %}
