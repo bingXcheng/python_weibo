@@ -7,12 +7,12 @@ Werkzeug==3.0.1
 
 # 数据库
 PyMySQL==1.1.0
-SQLAlchemy==2.0.28
+SQLAlchemy==2.0.48
 
 # 数据处理（需支持 Python 3.14）
 pandas==3.0.1
 numpy==2.4.3
-pytz==2024.1
+pytz==2024.2
 tzdata==2024.1
 
 # 网络请求
@@ -51,4 +51,4 @@ importlib-resources==6.3.1
 zipp==3.18.1
 colorama==0.4.6
 typing-extensions==4.10.0
-greenlet==3.0.3
+greenlet==3.3.2
