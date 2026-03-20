@@ -9,9 +9,9 @@ Werkzeug==3.0.1
 PyMySQL==1.1.0
 SQLAlchemy==2.0.28
 
-# 数据处理
-pandas==2.0.3
-numpy==1.24.4
+# 数据处理（需支持 Python 3.14）
+pandas==3.0.1
+numpy==2.4.3
 pytz==2024.1
 tzdata==2024.1
 
@@ -27,8 +27,8 @@ jieba==0.42.1
 snownlp==0.12.3
 
 # 可视化
-matplotlib==3.7.5
-wordcloud==1.9.3
+matplotlib==3.10.8
+wordcloud==1.9.6
 Pillow==10.2.0
 
 # 辅助工具
@@ -45,7 +45,7 @@ contourpy==1.1.1
 fonttools==4.50.0
 pyparsing==3.1.2
 packaging==24.0
-setuptools==56.0.0
+setuptools>=75.0.0
 importlib-metadata==7.0.2
 importlib-resources==6.3.1
 zipp==3.18.1
