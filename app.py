@@ -1,6 +1,14 @@
-from flask import Flask, session, render_template, redirect, request
-import re
 import os
+import warnings
+import re
+
+# matplotlib 字体缓存写入 /tmp，避免占用进程内存
+os.environ["MPLCONFIGDIR"] = "/tmp/mpl_cache"
+
+# 抑制第三方包的 SyntaxWarning（jieba、pyparsing 等）
+warnings.filterwarnings("ignore", category=SyntaxWarning)
+
+from flask import Flask, session, render_template, redirect, request
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'This is a app.secret_Key , You Know ?')
@@ -37,6 +45,11 @@ def before_request():
 @app.route('/<path:path>')
 def catch_all(path):
     return render_template('404.html')
+
+
+@app.route('/health')
+def health():
+    return '', 200
 
 
 if __name__ == '__main__':
