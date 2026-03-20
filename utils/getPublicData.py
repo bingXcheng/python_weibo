@@ -81,7 +81,7 @@ def getAllCiPingTotal():
         try:
             data.append([
                 re.search('[\u4e00-\u9fa5]+', str(i)).group(),
-                re.search('\d+', str(i)).group()
+                re.search(r'\d+', str(i)).group()
             ])
         except:
             continue
